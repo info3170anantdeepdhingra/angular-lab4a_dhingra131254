@@ -17,6 +17,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProductItemComponent } from './components/products/product-item/product-item.component';
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
+import { ShoppingCartProductsComponent } from './components/products/shopping-cart-products/shopping-cart-products.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { ProductDetailsComponent } from './components/products/product-details/p
     ProductItemComponent,
     AboutUsComponent,
     ProductDetailsComponent,
+    ShoppingCartProductsComponent,
   ],
   bootstrap: [AppComponent],
 })

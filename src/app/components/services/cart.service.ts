@@ -4,6 +4,11 @@ import { ShoppingCart } from '../models/shopping-cart';
 import { Observable, Observer } from 'rxjs';
 import { ProductsService } from './products.service';
 import { CartItem } from '../models/cart-item';
+import { LocalStorageService } from './storage.service';
+
+// CART_KEY is a constant we define at this class to hold the key in the local storage
+// where the cart will be
+const CART_KEY = 'cart';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +20,13 @@ export class CartService {
   >();
   private _products: Product[];
   //TODO: implement storage
+  private _storage: Storage;
 
-  constructor(private _productService: ProductsService) {
+  constructor(
+    private _productService: ProductsService,
+    private _storageService: LocalStorageService
+  ) {
+    this._storage = this._storageService.get();
     this._products = this._productService.getProducts();
     this._subscriptionObservable = new Observable<ShoppingCart>(
       (observer: Observer<ShoppingCart>) => {
@@ -45,10 +55,11 @@ export class CartService {
     }
 
     item.quantity += quantity;
-    cart.items = cart.items.filter((cartItem) => cartItem.quantity > 0);
+    //item.quantity = 0;
+    //cart.items = cart.items.filter((cartItem) => cartItem.quantity > 0);
 
-    //this.calculateCart(cart);
-    //this.save(cart);
+    this.calculateCart(cart);
+    this.save(cart);
     this.dispatch(cart);
   }
 
@@ -62,14 +73,21 @@ export class CartService {
       .reduce((previous, current) => previous + current, 0);
   }
 
+  // The method `retrieve` , that is the key for the update of the cart information now
+  // also incorporates the storage service.
   private retrieve(): ShoppingCart {
     const cart = new ShoppingCart();
     // TODO: replace with storage feature
+    const storedCart = this._storage.getItem(CART_KEY);
+    if (storedCart) {
+      cart.updateFrom(JSON.parse(storedCart));
+    }
     return cart;
   }
 
   private save(cart: ShoppingCart): void {
     //implement saving the cart to storage.
+    this._storage.setItem(CART_KEY, JSON.stringify(cart));
   }
 
   private dispatch(cart: ShoppingCart): void {

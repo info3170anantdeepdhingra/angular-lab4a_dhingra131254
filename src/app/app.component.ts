@@ -22,6 +22,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _cartSubscription: Subscription;
 
+  // Calculate sum in shopping cart
+  //uniqueProductCount
+  public uniqueProductCount: number;
+  private _uniqueProductCount: Subscription;
+
   public routeFound: boolean = false;
   private _event$;
   private _routes;
@@ -51,6 +56,15 @@ export class AppComponent implements OnInit, OnDestroy {
       this.itemCount = cart.items
         .map((x) => x.quantity)
         .reduce((p, n) => p + n, 0);
+    });
+
+    // Subscription Component count
+    this._uniqueProductCount = this.cart.subscribe((cart) => {
+      let productIds = [];
+      productIds = cart.items.map((x) => x.productId);
+      let uniqueProductIds = [...new Set(productIds)];
+      // Gets the number of unique products
+      this.uniqueProductCount = uniqueProductIds.length;
     });
   }
 

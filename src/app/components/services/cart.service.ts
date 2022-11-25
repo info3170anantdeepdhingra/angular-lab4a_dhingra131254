@@ -11,7 +11,8 @@ import { CartItem } from '../models/cart-item';
 export class CartService {
   private _subscriptionObservable: Observable<ShoppingCart>;
   private _subscribers: Array<Observer<ShoppingCart>> = new Array<
-    Observer<ShoppingCart>>();
+    Observer<ShoppingCart>
+  >();
   private _products: Product[];
   //TODO: implement storage
 
@@ -80,5 +81,4 @@ export class CartService {
       }
     });
   }
-
 }

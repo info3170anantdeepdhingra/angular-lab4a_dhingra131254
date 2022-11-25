@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './components/products/products-list/products-list.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProductItemComponent } from './components/products/product-item/product-item.component';
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
@@ -25,7 +26,8 @@ import { ProductDetailsComponent } from './components/products/product-details/p
       { path: 'productlist', redirectTo: '/products', pathMatch: 'full' },
       { path: 'products/:productId', component: ProductDetailsComponent },
       { path: 'cart', component: ShoppingCartComponent },
-      { path: '', redirectTo: '/products', pathMatch: 'full' },
+      { path: 'about', component: AboutUsComponent },
+      { path: '', redirectTo: '/about', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent },
     ]),
     FormsModule,
@@ -43,6 +45,7 @@ import { ProductDetailsComponent } from './components/products/product-details/p
     ShoppingCartComponent,
     PageNotFoundComponent,
     ProductItemComponent,
+    AboutUsComponent,
     ProductDetailsComponent,
   ],
   bootstrap: [AppComponent],
